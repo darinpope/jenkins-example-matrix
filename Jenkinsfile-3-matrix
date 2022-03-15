@@ -1,0 +1,46 @@
+pipeline {
+  agent none
+  stages {
+    stage('BuildAndTest') {
+      matrix {
+        agent {
+          label "${PLATFORM}-${BROWSER}"
+        }
+        axes {
+          axis {
+            name 'PLATFORM'
+            values 'linux', 'macos'
+          }
+          axis {
+            name 'BROWSER'
+            values 'chrome', 'firefox', 'safari'
+          }
+        }
+        excludes {
+          exclude {
+            axis {
+                name 'PLATFORM'
+                values 'linux'
+            }
+            axis {
+                name 'BROWSER'
+                values 'safari'
+            }
+          }
+        }
+        stages {
+          stage('Build') {
+            steps {
+              sh 'echo Do Build for $PLATFORM-$BROWSER'
+            }
+          }
+          stage('Test') {
+            steps {
+              sh 'echo Do Test for $PLATFORM-$BROWSER'
+            }
+          }
+        }
+      }
+    }
+  }
+}

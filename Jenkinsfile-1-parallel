@@ -1,0 +1,39 @@
+pipeline {
+  agent none
+  stages {
+    stage('BuildAndTest') {
+      parallel {
+        stage('macos') {
+          agent {label 'macos'}
+          stages {
+            stage('Build') {
+              steps {
+                sh 'echo Do Build for macos'
+              }
+            }
+            stage('Test') {
+              steps {
+                sh 'echo Do Test for macos'
+              }
+            }
+          }
+        }
+        stage('linux') {
+          agent {label 'linux'}
+          stages {
+            stage('Build') {
+              steps {
+                sh 'echo Do Build for linux'
+              }
+            }
+            stage('Test') {
+              steps {
+                sh 'echo Do Test for linux'
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

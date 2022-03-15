@@ -1,0 +1,84 @@
+pipeline {
+  agent none
+  stages {
+    stage('BuildAndTest') {
+      parallel {
+        stage('macos-chrome') {
+          agent {label 'macos-chrome'}
+          stages {
+            stage('Build') {
+              steps {
+                sh 'echo Do Build for macos-chrome'
+              }
+            }
+            stage('Test') {
+              steps {
+                sh 'echo Do Test for macos-chrome'
+              }
+            }
+          }
+        }
+        stage('macos-firefox') {
+          agent {label 'macos-firefox'}
+          stages {
+            stage('Build') {
+              steps {
+                sh 'echo Do Build for macos-firefox'
+              }
+            }
+            stage('Test') {
+              steps {
+                sh 'echo Do Test for macos-firefox'
+              }
+            }
+          }
+        }
+        stage('macos-safari') {
+          agent {label 'macos-safari'}
+          stages {
+            stage('Build') {
+              steps {
+                sh 'echo Do Build for macos-safari'
+              }
+            }
+            stage('Test') {
+              steps {
+                sh 'echo Do Test for macos-safari'
+              }
+            }
+          }
+        }
+        stage('linux-chrome') {
+          agent {label 'linux-chrome'}
+          stages {
+            stage('Build') {
+              steps {
+                sh 'echo Do Build for linux-chrome'
+              }
+            }
+            stage('Test') {
+              steps {
+                sh 'echo Do Test for linux-chrome'
+              }
+            }
+          }
+        }
+        stage('linux-firefox') {
+          agent {label 'linux-firefox'}
+          stages {
+            stage('Build') {
+              steps {
+                sh 'echo Do Build for linux-firefox'
+              }
+            }
+            stage('Test') {
+              steps {
+                sh 'echo Do Test for linux-firefox'
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
